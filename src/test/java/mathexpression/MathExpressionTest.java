@@ -12,8 +12,8 @@ public class MathExpressionTest {
     @Test
     public void sum() {
         Parser parser = new Parser();
-        Expression expr = parser.parse("5+5");
-        assertEquals(10.0, expr.evaluate());
+        Expression expr = parser.parse("5+5+6");
+        assertEquals(16.0, expr.evaluate());
     }
 
     @Test
@@ -27,6 +27,13 @@ public class MathExpressionTest {
     public void expression() {
         Parser parser = new Parser();
         Expression expr = parser.parse("4-(5*4)");
+        assertEquals(-16.0, expr.evaluate());
+    }
+
+    @Test
+    public void expression2() {
+        Parser parser = new Parser();
+        Expression expr = parser.parse("4/2-(5+4)*2");
         assertEquals(-16.0, expr.evaluate());
     }
 
