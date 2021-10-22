@@ -1,5 +1,7 @@
 package mathexpression.parser;
 
+import mathexpression.exception.InvalidExpressionException;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -11,7 +13,7 @@ public class LexicalAnalyzer {
         this.expression = expression;
     }
 
-    public ArrayList<Token> analyze() throws Exception {
+    public ArrayList<Token> analyze() throws InvalidExpressionException {
 
         ArrayList<Token> tokens = new ArrayList<>();
 
@@ -56,7 +58,7 @@ public class LexicalAnalyzer {
                         } else if (method.equalsIgnoreCase("MIN")) {
                             tokens.add(new Token(TokenType.MIN, method));
                         } else {
-                            throw new Exception("Illegal expression");
+                            throw new InvalidExpressionException("Illegal expression");
                         }
 
                         i += method.length() - 1;
@@ -73,7 +75,7 @@ public class LexicalAnalyzer {
                         tokens.add(new Token(TokenType.DOUBLE, sb.toString()));
                         i = j - 1;
                     } else {
-                        throw new Exception("Illegal expression");
+                        throw new InvalidExpressionException("Illegal expression");
                     }
             }
         }

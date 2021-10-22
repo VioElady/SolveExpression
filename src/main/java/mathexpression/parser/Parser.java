@@ -1,6 +1,7 @@
 package mathexpression.parser;
 
 import mathexpression.ast.*;
+import mathexpression.exception.InvalidExpressionException;
 
 import java.util.ArrayList;
 
@@ -14,21 +15,16 @@ public class Parser {
     }
 
     public Expression parse(String expression) {
-
-        try {
-            tokens = new LexicalAnalyzer(expression).analyze();
-            if (LexicalAnalyzer.isValid(tokens)) {
-                currentToken = getToken();
-                if (currentToken == null) {
-                    return null;
-                }
-                return expr();
+        tokens = new LexicalAnalyzer(expression).analyze();
+        if (LexicalAnalyzer.isValid(tokens)) {
+            currentToken = getToken();
+            if (currentToken == null) {
+                return null;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return expr();
+        } else {
+            throw new InvalidExpressionException("Illegal expression");
         }
-
-        return null;
     }
 
     private Expression expr() {
